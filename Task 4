@@ -1,16 +1,6 @@
-DELIMITER ;
 
--- Step 1: Drop Duplicates table if already exists
-DROP TABLE IF EXISTS Duplicates;
 
--- Step 2: Create Duplicates table
-CREATE TABLE Duplicates (
-    feed_name VARCHAR(50),
-    duplicate_data TEXT,
-    duplicate_count INT
-);
-
--- Step 3: Insert duplicates from Feed1 (all 10 columns)
+-- Step 1: Insert duplicates from Feed1 (all 10 columns)
 INSERT INTO Duplicates (feed_name, duplicate_data, duplicate_count)
 SELECT 'Feed1',
        CONCAT_WS(',', col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10),
@@ -19,7 +9,7 @@ FROM Feed1
 GROUP BY col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10
 HAVING COUNT(*) > 1;
 
--- Step 4: Insert duplicates from Feed2 (all 15 columns)
+-- Step 2: Insert duplicates from Feed2 (all 15 columns)
 INSERT INTO Duplicates (feed_name, duplicate_data, duplicate_count)
 SELECT 'Feed2',
        CONCAT_WS(',', col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10,
@@ -30,7 +20,7 @@ GROUP BY col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10,
          col_11, col_12, col_13, col_14, col_15
 HAVING COUNT(*) > 1;
 
--- Step 5: Insert duplicates from Feed3 (all 20 columns)
+-- Step 3: Insert duplicates from Feed3 (all 20 columns)
 INSERT INTO Duplicates (feed_name, duplicate_data, duplicate_count)
 SELECT 'Feed3',
        CONCAT_WS(',', col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10,
@@ -41,5 +31,5 @@ GROUP BY col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10,
          col_11, col_12, col_13, col_14, col_15, col_16, col_17, col_18, col_19, col_20
 HAVING COUNT(*) > 1;
 
--- Step 6: View duplicates
+-- Step 4: View duplicates
 SELECT * FROM Duplicates;
