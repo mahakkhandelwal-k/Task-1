@@ -38,22 +38,3 @@ DROP TABLE Feed3_unique;
 
 
 
-    col_1 = pk, col_2 = SUBSTRING(MD5(RAND()), 1, 8), col_3 = SUBSTRING(MD5(RAND()), 1, 8),
-    col_4 = SUBSTRING(MD5(RAND()), 1, 8), col_5 = SUBSTRING(MD5(RAND()), 1, 8), col_6 = SUBSTRING(MD5(RAND()), 1, 8),
-    col_7 = SUBSTRING(MD5(RAND()), 1, 8), col_8 = SUBSTRING(MD5(RAND()), 1, 8), col_9 = SUBSTRING(MD5(RAND()), 1, 8),
-    col_10 = SUBSTRING(MD5(RAND()), 1, 8)
-WHERE pk IN (SELECT pk FROM temp_pks_to_update);
-
-TRUNCATE TABLE Feed1;
-INSERT INTO Feed1 (col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10)
-SELECT col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10 FROM temp_feed_with_pk;
-
-SELECT
-    COUNT(*) AS number_of_duplicate_groups
-FROM (
-    SELECT COUNT(*)
-    FROM Feed1
-    GROUP BY
-        col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8, col_9, col_10
-    HAVING COUNT(*) > 1
-) AS duplicate_counts;
